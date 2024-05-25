@@ -1,0 +1,17 @@
+condense_wildcard_suffixes = false
+edition = "2021"
+force_multiline_blocks = false
+format_code_in_doc_comments = true
+format_macro_bodies = true
+format_macro_matchers = true
+format_strings = true
+group_imports = "StdExternalCrate"
+imports_granularity = "Crate"
+normalize_comments = true
+normalize_doc_attributes = true
+overflow_delimited_expr = false
+reorder_impl_items = true
+reorder_modules = true
+space_after_colon = true
+unstable_features = true
+wrap_comments = true
