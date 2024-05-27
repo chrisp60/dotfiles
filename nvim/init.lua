@@ -18,8 +18,6 @@ end
 ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-
-
 vim.lsp.set_log_level("ERROR")
 vim.opt.colorcolumn = "80,100"
 vim.opt.cursorline = true
@@ -30,6 +28,7 @@ vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 4
 vim.opt.showmode = true
+vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
 vim.opt.smartindent = true
 vim.opt.softtabstop = 4

@@ -1,5 +1,11 @@
 ---@type LazyPluginSpec[]
 return {
+    {
+        "m4xshen/hardtime.nvim",
+        dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+        enabled = true,
+        opts = {}
+    },
     { "tpope/vim-surround" },
     { "christoomey/vim-tmux-navigator" },
     { "tpope/vim-repeat" },

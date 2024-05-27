@@ -18,6 +18,11 @@ return {
                     },
                 },
             },
+            custom_highlights = function(colors)
+                return {
+                    LineNr = { fg = colors.overlay1, style = { "bold", "italic" } }
+                }
+            end,
             highlight_overrides = {
                 all = function(colors)
                     return {
@@ -32,12 +37,11 @@ return {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
             require("ibl").setup({
+                indent = { char = "▏" },
                 scope = {
                     enabled = true,
-                    char = "╎",
                     show_start = true,
                 },
-                indent = { char = "╎" },
             })
         end,
     },
