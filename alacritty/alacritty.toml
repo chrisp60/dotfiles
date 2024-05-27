@@ -2,10 +2,10 @@
 program = "zsh"
 
 [window]
-padding = { x = 10, y = 10 }
+padding = { x = 10, y = 0 }
 dynamic_title = false
 decorations = "None"
-dynamic_padding = true
+dynamic_padding = false
 opacity = 1
 
 [mouse]
