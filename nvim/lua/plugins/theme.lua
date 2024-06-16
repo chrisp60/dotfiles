@@ -20,16 +20,9 @@ return {
             },
             custom_highlights = function(colors)
                 return {
-                    LineNr = { fg = colors.maroon, style = { "bold", "italic" } }
+                    LineNr = { fg = colors.maroon, style = { "bold", "italic" } },
                 }
             end,
-            highlight_overrides = {
-                all = function(colors)
-                    return {
-                        -- ["@lsp.type.decorator"] = { fg = colors.blue },
-                    }
-                end,
-            },
         },
     },
 
@@ -45,7 +38,6 @@ return {
             })
         end,
     },
-
 
     {
         "stevearc/dressing.nvim",

@@ -4,7 +4,7 @@ local set = vim.keymap.set
 ---@param bufnr integer
 local on_attach = function(client, bufnr)
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = "single"
+        border = "single",
     })
     local opts = { buffer = bufnr }
     local toks = vim.lsp.semantic_tokens
@@ -60,7 +60,7 @@ return {
         ft = "rust",
         build = ":TSUpdate",
         name = "tree-sitter-rstml",
-        opts = {}
+        opts = {},
     },
     {
         "j-hui/fidget.nvim",
@@ -69,7 +69,7 @@ return {
     },
     {
         "williamboman/mason.nvim",
-        opts = {}
+        opts = {},
     },
     { "saadparwaiz1/cmp_luasnip" },
     { "hrsh7th/cmp-nvim-lsp" },
@@ -110,9 +110,9 @@ return {
                     ["<C-y>"] = cmp.mapping.complete({
                         config = {
                             sources = {
-                                { name = "nvim_lsp" }
-                            }
-                        }
+                                { name = "nvim_lsp" },
+                            },
+                        },
                     }),
                     ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
                     ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -179,7 +179,7 @@ return {
                                     hover = {
                                         links = {
                                             enable = true,
-                                        }
+                                        },
                                     },
                                     cargo = {
                                         features = "all",
@@ -193,15 +193,15 @@ return {
                                             "--max-width=80",
                                             "--tab-spaces=2",
                                             "--stdin",
-                                            "--rustfmt"
+                                            "--rustfmt",
                                         },
-
                                     },
                                     procMacro = {
                                         enabled = true,
                                         ignored = {
                                             tokio_macros = {
-                                                "main", "test",
+                                                "main",
+                                                "test",
                                             },
                                             tracing_attributes = {
                                                 "instrument",
