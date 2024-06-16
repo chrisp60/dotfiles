@@ -1,6 +1,5 @@
 vim.g.mapleader = " "
-vim.g.zig_fmt_autosave = false
-vim.opt.conceallevel = 1
+
 
 -- Bootstrap Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -34,10 +33,16 @@ vim.opt.smartindent = true
 vim.opt.softtabstop = 4
 vim.opt.autoindent = true
 vim.opt.splitright = true
-vim.opt.swapfile = false
+vim.opt.swapfile = true
 vim.opt.tabstop = 4
 vim.opt.termguicolors = true
 vim.opt.wrap = false
+vim.opt.numberwidth = 2
+
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter" }, {
+    pattern = "*",
+    command = "set rnu cursorline signcolumn=no numberwidth=1"
+})
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -58,31 +63,8 @@ vim.keymap.set("n", "goi", function()
     vim.diagnostic.config({ update_in_insert = updating_on_insert })
 end)
 
-
-
 -- Do not show hot-reload messages from Lazy
 require("lazy").setup("plugins", {
-    ui = {
-        icons = {
-            cmd = " ",
-            config = " ",
-            event = " ",
-            ft = " ",
-            init = " ",
-            import = " ",
-            keys = " ",
-            lazy = " ",
-            loaded = " ",
-            not_loaded = " ",
-            plugin = " ",
-            runtime = " ",
-            require = " ",
-            source = " ",
-            start = " ",
-            task = " ",
-            list = { "- ", },
-        },
-    },
     dev = {
         path = "~/projects",
         patterns = { "chrisp60" },

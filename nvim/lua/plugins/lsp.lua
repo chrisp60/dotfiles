@@ -3,6 +3,9 @@ local set = vim.keymap.set
 ---@param client vim.lsp.Client
 ---@param bufnr integer
 local on_attach = function(client, bufnr)
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = "single"
+    })
     local opts = { buffer = bufnr }
     local toks = vim.lsp.semantic_tokens
     local toks_supp = client.server_capabilities.semanticTokensProvider ~= nil
@@ -131,6 +134,8 @@ return {
             local lsp_zero = require("lsp-zero")
             lsp_zero.format_on_save({
                 servers = {
+                    ["html"] = { "html" },
+                    ["clangd"] = { "c" },
                     ["taplo"] = { "toml" },
                     ["rust_analyzer"] = { "rust" },
                     ["lua_ls"] = { "lua" },
@@ -171,6 +176,11 @@ return {
                         lsp_config.rust_analyzer.setup({
                             settings = {
                                 ["rust-analyzer"] = {
+                                    hover = {
+                                        links = {
+                                            enable = true,
+                                        }
+                                    },
                                     cargo = {
                                         features = "all",
                                     },
@@ -208,6 +218,7 @@ return {
                                         },
                                     },
                                     check = {
+                                        command = "clippy",
                                         features = "all",
                                     },
                                 },

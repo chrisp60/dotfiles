@@ -3,8 +3,29 @@ return {
     {
         "m4xshen/hardtime.nvim",
         dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-        enabled = true,
-        opts = {}
+        config = function()
+            require("hardtime").setup({
+                disabled_keys = {
+                    ["<Up>"] = {},
+                    ["<Down>"] = {},
+                },
+                max_count = 3,
+                disable_mouse = false,
+            })
+
+            local state = true;
+            local msg
+
+            if state then
+                msg = "ENABLED"
+            else
+                msg = "DISABLED"
+            end
+            vim.keymap.set("n", "<leader>z", function()
+                vim.cmd("Hardtime toggle")
+                vim.notify("Hardtime toggled" .. msg)
+            end)
+        end,
     },
     { "tpope/vim-surround" },
     { "christoomey/vim-tmux-navigator" },
@@ -76,7 +97,12 @@ return {
                 modules = {},
                 ignore_install = {},
                 auto_install = true,
-                ensure_installed = {},
+                ensure_installed = {
+                    -- for some reason markdown_inline doesnt auto_install
+                    -- rust doc comments maybe that is a bug worth putting in their github.
+                    "markdown_inline",
+                    "markdown",
+                },
                 sync_install = false,
                 highlight = {
                     enable = true,

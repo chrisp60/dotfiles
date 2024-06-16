@@ -20,7 +20,7 @@ return {
             },
             custom_highlights = function(colors)
                 return {
-                    LineNr = { fg = colors.overlay1, style = { "bold", "italic" } }
+                    LineNr = { fg = colors.maroon, style = { "bold", "italic" } }
                 }
             end,
             highlight_overrides = {

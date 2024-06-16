@@ -29,7 +29,7 @@ output * bg ~/images/bg/sakura_tree.png fill
 
 # Outputs
 output HDMI-A-2 mode 1920x1080 position 0 0
-output DVI-D-1 mode 1920x1080@144.001Hz position 1920 0
+output DVI-D-1 mode 1920x1080 position 1920 0
 
 
 ### Key bindings
@@ -101,7 +101,7 @@ bindsym $mod+o mode "resize"
 # Layout stuff:
 
 # Dont show a border
-default_border pixel 3
+default_border pixel 2
 default_floating_border none
 
 
@@ -148,5 +148,4 @@ bar {
 }
 
 
-exec_always gammastep
 include /etc/sway/config.d/*
