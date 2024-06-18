@@ -1,0 +1,4 @@
+# vim: ft=swayconfig
+    # bindsym KP_5 exec "pactl set-source-mute @DEFAULT_SOURCE@ 0"
+    # bindsym KP_5 --release KEY_KP5 exec "pactl set-source-mute @DEFAULT_SOURCE@ 1"
+}
