@@ -16,7 +16,7 @@ normal = { family = "Source Code Pro", style = "SemiBold" }
 italic = { family = "Source Code Pro", style = "SemiBold Italic" }
 bold = { family = "Source Code Pro", style = "Bold" }
 bold_italic = { family = "Source Code Pro", style = "Bold Italic" }
-size = 14
+size = 15
 
 [selection]
 save_to_clipboard = true
