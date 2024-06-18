@@ -37,11 +37,11 @@ vim.opt.swapfile = true
 vim.opt.tabstop = 4
 vim.opt.termguicolors = true
 vim.opt.wrap = false
-vim.opt.numberwidth = 2
+vim.opt.numberwidth = 4
 
 vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter" }, {
     pattern = "*",
-    command = "set rnu cursorline signcolumn=no numberwidth=1"
+    command = "set rnu cursorline numberwidth=4"
 })
 
 vim.diagnostic.config({
