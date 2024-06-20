@@ -2,7 +2,7 @@
 program = "zsh"
 
 [window]
-padding = { x = 10, y = 0 }
+padding = { x = 10, y = 10 }
 dynamic_title = false
 decorations = "None"
 dynamic_padding = false
@@ -16,7 +16,7 @@ normal = { family = "Source Code Pro", style = "SemiBold" }
 italic = { family = "Source Code Pro", style = "SemiBold Italic" }
 bold = { family = "Source Code Pro", style = "Bold" }
 bold_italic = { family = "Source Code Pro", style = "Bold Italic" }
-size = 15
+size = 14
 
 [selection]
 save_to_clipboard = true
