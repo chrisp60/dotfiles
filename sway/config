@@ -1,118 +1,135 @@
-
-# Alt Key Leader
+###############################################################################
+# Modifier
+###############################################################################
 set $mod Mod1
 
-include catpuccin-mocha
+###############################################################################
+# Outputs
+###############################################################################
+set $primary_output DVI-D-1
+set $secondary_output HDMI-A-2
 
-bindsym --locked --no-repeat {
-     KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 0" 
-     --release KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 1" 
-}
+output $primary_output mode 1920x1080@144Hz position 1920 0
+output $secondary_output mode 1920x1080 position 0 0
 
-font pango:Source Code Pro 10
+workspace 0 output $primary_output
+workspace 1 output $primary_output
+workspace 2 output $primary_output
+workspace 3 output $primary_output
+workspace 4 output $primary_output
+workspace 5 output $primary_output
+workspace 6 output $secondary_output
+workspace 7 output $secondary_output
+workspace 8 output $secondary_output
+workspace 9 output $secondary_output
 
-tiling_drag enable
-
+###############################################################################
+# Inputs 
+###############################################################################
 input "type:keyboard" {
     xkb_layout us
     xkb_model kinesis
 }
 
+###############################################################################
+# Includes
+###############################################################################
+include catpuccin-mocha
 
-set $left h
-set $down j
-set $up k
-set $right l
+###############################################################################
+#  Execs
+###############################################################################
+exec gammastep
 
-# Terminal
-set $term alacritty
-
-# Launcher
-set $menu dmenu_path | wmenu | xargs swaymsg exec --
-
-# Wallpaper
+###############################################################################
+# Options
+###############################################################################
+xwayland enable
+tiling_drag enable
+font pango:Source Code Pro 10
 output * bg ~/images/bg/sakura_tree.png fill
-
-# Outputs
-output HDMI-A-2 mode 1920x1080 position 0 0
-output DVI-D-1 mode 1920x1080@144Hz position 1920 0
-
-### Key bindings
-# Start a terminal
-bindsym $mod+Return exec $term
-bindsym $mod+u exec vivaldi
-
-# Kill focused window
-bindsym $mod+q kill
-
-# Start your launcher
-bindsym $mod+d exec $menu
-
-# Reload the configuration file
-bindsym $mod+r reload
-
-# Moving around:
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
-# Move the focused window with the same, but add Shift
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
-
-# Switch to workspace
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2 
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-
-
-# Move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+2 move container to workspace number 2
-bindsym $mod+Shift+3 move container to workspace number 3
-bindsym $mod+Shift+4 move container to workspace number 4
-bindsym $mod+Shift+5 move container to workspace number 5
-
-# Resizing containers:
-
-# Dont show a border
-default_border pixel 2
+default_border none
 default_floating_border none
+focus_follows_mouse no
 
-# Switch the current container between different layout styles
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+m workspace back_and_forth
+###############################################################################
+# Binds
+###############################################################################
+bindsym {
+    $mod+b border toggle
+    $mod+Return exec alacritty
+    $mod+u exec vivaldi
+    $mod+f fullscreen
+    $mod+q kill
+    $mod+d exec dmenu_path | wmenu | xargs swaymsg exec --
 
-# You can "split" the current object of your focus with
-# $mod+b or $mod+v, for horizontal and vertical splits
-# respectively.
-bindsym $mod+b splith
-bindsym $mod+v splitv
+    $mod+r reload
+    $mod+h focus left
+    $mod+j focus down
+    $mod+k focus up
+    $mod+l focus right
 
-# Make the current focus fullscreen
-bindsym $mod+f fullscreen
+    $mod+Shift+h move left
+    $mod+Shift+j move down
+    $mod+Shift+k move up
+    $mod+Shift+l move right
 
-# Toggle the current focus between tiling and floating mode
-bindsym $mod+Shift+space floating toggle
+    $mod+0 workspace number 0
+    $mod+1 workspace number 1
+    $mod+2 workspace number 2
+    $mod+3 workspace number 3
+    $mod+4 workspace number 4
+    $mod+5 workspace number 5
+    $mod+6 workspace number 6
+    $mod+7 workspace number 7
+    $mod+8 workspace number 8
+    $mod+9 workspace number 9
 
-# Swap focus between the tiling area and the floating area
-bindsym $mod+space focus mode_toggle
+    $mod+Shift+0 move container to workspace number 0; workspace 0
+    $mod+Shift+1 move container to workspace number 1; workspace 1
+    $mod+Shift+2 move container to workspace number 2; workspace 2
+    $mod+Shift+3 move container to workspace number 3; workspace 3
+    $mod+Shift+4 move container to workspace number 4; workspace 4
+    $mod+Shift+5 move container to workspace number 5; workspace 5
+    $mod+Shift+6 move container to workspace number 6; workspace 6
+    $mod+Shift+7 move container to workspace number 7; workspace 7
+    $mod+Shift+8 move container to workspace number 8; workspace 8
+    $mod+Shift+9 move container to workspace number 9; workspace 9
 
-# Move focus to the parent container
-bindsym $mod+a focus parent
+    $mod+Ctrl+0 move container to workspace number 0
+    $mod+Ctrl+1 move container to workspace number 1
+    $mod+Ctrl+2 move container to workspace number 2
+    $mod+Ctrl+3 move container to workspace number 3
+    $mod+Ctrl+4 move container to workspace number 4
+    $mod+Ctrl+5 move container to workspace number 5
+    $mod+Ctrl+6 move container to workspace number 6
+    $mod+Ctrl+7 move container to workspace number 7
+    $mod+Ctrl+8 move container to workspace number 8
+    $mod+Ctrl+9 move container to workspace number 9
 
+    $mod+w layout tabbed
+    $mod+e layout toggle split
+    $mod+Shift+space floating toggle
+    $mod+space focus mode_toggle
+    $mod+a focus parent
+
+}
+
+# Workaround for wayland not allowing global shortcuts.
+bindsym --locked --no-repeat {
+     KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 0" 
+     --release KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 1" 
+}
+
+###############################################################################
+# Bar
+###############################################################################
 bar {
-    mode dock
-    position top
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-    font pango:Source Code Pro 12
+    mode hide
+    modifier Mod1
+    position bottom
+    status_command while date +'%Y-%m-%d %X'; do sleep 60; done
+    font pango:Source Code Pro 10
     colors {
             background         $base
             statusline         $text
@@ -126,5 +143,5 @@ bar {
     }
 }
 
-
+# Keep at bottom?
 include /etc/sway/config.d/*
