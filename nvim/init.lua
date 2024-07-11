@@ -1,17 +1,16 @@
 vim.g.mapleader = " "
 
-
 -- Bootstrap Lazy
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable",
-        lazypath,
-    })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
 end
 
 ---@diagnostic disable-next-line: undefined-field
@@ -39,38 +38,35 @@ vim.opt.termguicolors = true
 vim.opt.wrap = false
 vim.opt.numberwidth = 4
 
-vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter" }, {
-    pattern = "*",
-    command = "set rnu cursorline numberwidth=4"
+vim.api.nvim_create_autocmd({ "BufWritePre", "BufWrite" }, {
+	pattern = { "*.js", "*.html" },
+	callback = function()
+		vim.keymap.set("n", "<leader>p", "<cmd>silent %! prettierd %<cr>")
+	end,
 })
 
 vim.diagnostic.config({
-    virtual_text = false,
-    update_in_insert = true,
-    signs = true,
-    underline = false,
+	virtual_text = false,
+	update_in_insert = true,
+	signs = true,
+	underline = false,
 })
 
 local showing_virtual_text = false
-local updating_on_insert = false
 
-vim.keymap.set("n", "gvt", function()
-    showing_virtual_text = not showing_virtual_text
-    vim.diagnostic.config({ virtual_text = showing_virtual_text })
-end)
-vim.keymap.set("n", "goi", function()
-    updating_on_insert = not updating_on_insert
-    vim.diagnostic.config({ update_in_insert = updating_on_insert })
+vim.keymap.set("n", "<leader>It", function()
+	showing_virtual_text = not showing_virtual_text
+	vim.diagnostic.config({ virtual_text = showing_virtual_text })
 end)
 
 -- Do not show hot-reload messages from Lazy
 require("lazy").setup("plugins", {
-    dev = {
-        path = "~/projects",
-        patterns = { "chrisp60" },
+	dev = {
+		path = "~/projects",
+		pattern = ".nvim",
         fallback = false,
-    },
-    change_detection = {
-        notify = false,
-    },
+	},
+	change_detection = {
+		notify = false,
+	},
 })
