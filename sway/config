@@ -48,7 +48,7 @@ xwayland enable
 tiling_drag enable
 font pango:Source Code Pro 10
 output * bg ~/images/bg/sakura_tree.png fill
-default_border none
+default_border pixel 1
 default_floating_border none
 focus_follows_mouse no
 
@@ -56,11 +56,9 @@ focus_follows_mouse no
 # Binds
 ###############################################################################
 bindsym {
-    $mod+b border toggle
     $mod+Return exec alacritty
     $mod+u exec vivaldi
-    $mod+f fullscreen
-    $mod+q kill
+    $mod+z kill
     $mod+d exec dmenu_path | wmenu | xargs swaymsg exec --
 
     $mod+r reload
@@ -96,42 +94,37 @@ bindsym {
     $mod+Shift+8 move container to workspace number 8; workspace 8
     $mod+Shift+9 move container to workspace number 9; workspace 9
 
-    $mod+Ctrl+0 move container to workspace number 0
-    $mod+Ctrl+1 move container to workspace number 1
-    $mod+Ctrl+2 move container to workspace number 2
-    $mod+Ctrl+3 move container to workspace number 3
-    $mod+Ctrl+4 move container to workspace number 4
-    $mod+Ctrl+5 move container to workspace number 5
-    $mod+Ctrl+6 move container to workspace number 6
-    $mod+Ctrl+7 move container to workspace number 7
-    $mod+Ctrl+8 move container to workspace number 8
-    $mod+Ctrl+9 move container to workspace number 9
-
-    $mod+w layout tabbed
-    $mod+e layout toggle split
+    $mod+t layout tabbed
+    $mod+s layout splith
+    $mod+o workspace back_and_forth
     $mod+Shift+space floating toggle
     $mod+space focus mode_toggle
-    $mod+a focus parent
 
+    $mod+f fullscreen toggle
+
+    $mod+n workspace next_on_output
+    $mod+p workspace prev_on_output
+
+    $mod+Shift+n workspace next
+    $mod+Shift+p workspace prev
 }
 
-# Workaround for wayland not allowing global shortcuts.
-bindsym --locked --no-repeat {
-     KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 0" 
-     --release KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 1" 
-}
+workspace_auto_back_and_forth yes
+mouse_warping none
+hide_edge_borders smart
+bindsym --locked --no-repeat --inhibited KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 0" 
+bindsym --locked --no-repeat --inhibited --release KP_BEGIN exec "pactl set-source-mute @DEFAULT_SOURCE@ 1"
 
 ###############################################################################
 # Bar
 ###############################################################################
 bar {
-    mode hide
-    modifier Mod1
-    position bottom
-    status_command while date +'%Y-%m-%d %X'; do sleep 60; done
+    tray_output $secondary_output
+    position top
+    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
     font pango:Source Code Pro 10
     colors {
-            background         $base
+        background         $base
             statusline         $text
             focused_statusline $text
             focused_separator  $red
