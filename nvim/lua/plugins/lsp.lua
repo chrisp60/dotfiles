@@ -1,6 +1,7 @@
 local set = vim.keymap.set
+local lsp_zero = require("lsp-zero")
+local lsp_config = require("lspconfig")
 
----@param bufnr integer
 local on_attach = function(client, bufnr)
 	local opts = { buffer = bufnr }
 
@@ -22,13 +23,70 @@ local on_attach = function(client, bufnr)
 	set({ "n", "v", "x" }, "ga", vim.lsp.buf.code_action, opts)
 end
 
+local rust_analyzer_config = function()
+	lsp_config.rust_analyzer.setup({
+		settings = {
+			["rust-analyzer"] = {
+				hover = {
+					links = {
+						enable = true,
+					},
+				},
+				cargo = {
+					features = "all",
+				},
+				diagnostics = {
+					disabled = {
+						"inactive-code",
+						"unlinked-file",
+					},
+				},
+				completion = {
+					postfix = {
+						enable = false,
+					},
+				},
+				rustfmt = {
+					overrideCommand = {
+						"leptosfmt",
+						"--stdin",
+						"--rustfmt",
+					},
+				},
+				procMacro = {
+					enabled = true,
+					ignored = {
+						tokio_macros = {
+							"main",
+							"test",
+						},
+						tracing_attributes = {
+							"instrument",
+						},
+						serde_with_macros = {
+							"serde_as",
+						},
+					},
+				},
+				imports = {
+					prefix = "crate",
+					granularity = {
+						enforce = true,
+					},
+				},
+				check = {
+					command = "clippy",
+					features = "all",
+				},
+			},
+		},
+	})
+end
+
 return {
 	{
 		"j-hui/fidget.nvim",
-		enabled = false,
-		opts = {
-			-- options
-		},
+		opts = {},
 	},
 	{
 		"rayliwell/tree-sitter-rstml",
@@ -105,11 +163,8 @@ return {
 			local lsp_zero = require("lsp-zero")
 			lsp_zero.format_on_save({
 				servers = {
-					-- ["html"] = { "html" },
-					-- ["clangd"] = { "c" },
-					-- ["taplo"] = { "toml" },
+					["taplo"] = { "toml" },
 					["rust_analyzer"] = { "rust" },
-					-- ["lua_ls"] = { "lua" },
 				},
 			})
 			lsp_zero.on_attach(on_attach)
@@ -124,83 +179,10 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		opts = function()
-			local lsp_zero = require("lsp-zero")
-			local lsp_config = require("lspconfig")
 			return {
 				handlers = {
-					-- Handlers for everything else
 					lsp_zero.default_setup,
-					lua_ls = function()
-						lsp_config.lua_ls.setup({
-							settings = {
-								Lua = {
-									completion = {
-										callSnippet = "Replace",
-										displayContext = 4,
-										keywordSnippet = "Both",
-									},
-								},
-							},
-						})
-					end,
-					rust_analyzer = function()
-						lsp_config.rust_analyzer.setup({
-							settings = {
-								["rust-analyzer"] = {
-									hover = {
-										links = {
-											enable = true,
-										},
-									},
-									cargo = {
-										features = "all",
-									},
-									diagnostics = {
-										disabled = { "inactive-code", "unlinked-file" },
-									},
-									completion = {
-										postfix = {
-											enable = false,
-										},
-									},
-									rustfmt = {
-										overrideCommand = {
-											"leptosfmt",
-											--		"--max-width=80",
-											--		"--tab-spaces=2",
-											"--stdin",
-											"--rustfmt",
-										},
-									},
-									procMacro = {
-										enabled = true,
-										ignored = {
-											tokio_macros = {
-												"main",
-												"test",
-											},
-											tracing_attributes = {
-												"instrument",
-											},
-											serde_with_macros = {
-												"serde_as",
-											},
-										},
-									},
-									imports = {
-										prefix = "crate",
-										granularity = {
-											enforce = true,
-										},
-									},
-									check = {
-										command = "clippy",
-										features = "all",
-									},
-								},
-							},
-						})
-					end,
+					rust_analyzer = rust_analyzer_config,
 				},
 			}
 		end,
