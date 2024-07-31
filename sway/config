@@ -51,11 +51,24 @@ output * bg ~/images/bg/sakura_tree.png fill
 default_border pixel 1
 default_floating_border none
 focus_follows_mouse no
+focus_wrapping no
 
 ###############################################################################
 # Binds
 ###############################################################################
 bindsym {
+    # Select area to screenshot to clipboard
+    $mod+q exec slurp | grim -g - - | wl-copy
+
+    # Screenshot current window to clipboard
+    $mod+Shift+q exec swaymsg -t get_tree \
+        | jq -r '.. \
+        | select(.focused?) \
+        | .rect \
+        | "\(.x),\(.y) \(.width)x\(.height)"' \
+        | grim -g - - \
+        | wl-copy
+
     $mod+Return exec alacritty
     $mod+u exec vivaldi
     $mod+z kill
@@ -95,7 +108,8 @@ bindsym {
     $mod+Shift+9 move container to workspace number 9; workspace 9
 
     $mod+t layout tabbed
-    $mod+s layout splith
+    $mod+v layout splith
+    $mod+s layout stacking
     $mod+o workspace back_and_forth
     $mod+Shift+space floating toggle
     $mod+space focus mode_toggle
@@ -120,7 +134,7 @@ bindsym --locked --no-repeat --inhibited --release KP_BEGIN exec "pactl set-sour
 ###############################################################################
 bar {
     tray_output $secondary_output
-    position top
+    position bottom
     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
     font pango:Source Code Pro 10
     colors {
