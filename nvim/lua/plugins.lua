@@ -1,26 +1,14 @@
 ---@type LazyPluginSpec[]
 return {
 	{
+		"L3MON4D3/LuaSnip",
+		opts = {},
+	},
+	{
 		"cargo_expand.nvim",
 		dev = true,
 		config = function()
 			vim.keymap.set("n", "<leader>E", require("cargo_expand").expand)
-		end,
-	},
-	{
-		"m4xshen/hardtime.nvim",
-        enabled = false,
-		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-		config = function()
-			require("hardtime").setup({
-				disabled_keys = {
-					["<Up>"] = {},
-					["<Down>"] = {},
-				},
-				max_count = 3,
-				disable_mouse = false,
-			})
-			vim.keymap.set("n", "<leader>z", "<cmd>Hardtime toggle<cr>")
 		end,
 	},
 	{ "tpope/vim-surround" },

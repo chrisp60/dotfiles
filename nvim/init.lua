@@ -25,7 +25,7 @@ vim.opt.incsearch = true
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.shiftwidth = 4
-vim.opt.showmode = true
+vim.opt.showmode = false
 vim.opt.undofile = true
 vim.opt.signcolumn = "yes"
 vim.opt.smartindent = true
@@ -38,13 +38,6 @@ vim.opt.termguicolors = true
 vim.opt.wrap = false
 vim.opt.numberwidth = 4
 
-vim.api.nvim_create_autocmd({ "BufWritePre", "BufWrite" }, {
-	pattern = { "*.js", "*.html" },
-	callback = function()
-		vim.keymap.set("n", "<leader>p", "<cmd>silent %! prettierd %<cr>")
-	end,
-})
-
 vim.diagnostic.config({
 	virtual_text = false,
 	update_in_insert = true,
@@ -52,21 +45,11 @@ vim.diagnostic.config({
 	underline = false,
 })
 
-local showing_virtual_text = false
-
-vim.keymap.set("n", "<leader>It", function()
-	showing_virtual_text = not showing_virtual_text
-	vim.diagnostic.config({ virtual_text = showing_virtual_text })
-end)
-
--- Do not show hot-reload messages from Lazy
 require("lazy").setup("plugins", {
 	dev = {
 		path = "~/projects",
 		pattern = ".nvim",
-        fallback = false,
+		fallback = false,
 	},
-	change_detection = {
-		notify = false,
-	},
+	change_detection = { notify = false },
 })

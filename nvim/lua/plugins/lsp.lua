@@ -1,6 +1,4 @@
 local set = vim.keymap.set
-local lsp_zero = require("lsp-zero")
-local lsp_config = require("lspconfig")
 
 local on_attach = function(client, bufnr)
 	local opts = { buffer = bufnr }
@@ -24,6 +22,8 @@ local on_attach = function(client, bufnr)
 end
 
 local rust_analyzer_config = function()
+	local lsp_zero = require("lsp-zero")
+	local lsp_config = require("lspconfig")
 	lsp_config.rust_analyzer.setup({
 		settings = {
 			["rust-analyzer"] = {
@@ -179,6 +179,8 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		opts = function()
+			local lsp_zero = require("lsp-zero")
+			local lsp_config = require("lspconfig")
 			return {
 				handlers = {
 					lsp_zero.default_setup,
